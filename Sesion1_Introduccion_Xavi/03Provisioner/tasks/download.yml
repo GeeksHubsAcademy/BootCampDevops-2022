@@ -1,0 +1,7 @@
+- name: Get update files from Git
+  git:
+    repo: https://github.com/DanielDesign/homero-csshtml
+    dest: /var/www/html/
+    force: true
+    version: master
+  become: yes

@@ -1,0 +1,4 @@
+- name: Ansible apt install nginx
+  apt:
+    name: nginx
+    update_cache: yes

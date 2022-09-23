@@ -1,0 +1,4 @@
+- name: Delete Folder
+  file:
+    path: /var/www/html
+    state: "absent"

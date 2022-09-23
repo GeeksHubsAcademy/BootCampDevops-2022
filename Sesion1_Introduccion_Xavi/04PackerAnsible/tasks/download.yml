@@ -1,0 +1,7 @@
+- name: Get update files from Git
+  git:
+    repo: https://github.com/Hisahito/Pintura-a-Cuadro-en-CSS
+    dest: /var/www/html/
+    force: true
+    version: master
+  become: yes

@@ -1,0 +1,10 @@
+---
+- hosts:  default
+  vars:
+    ansible_host_key_checking: false
+  become: yes
+  tasks:
+    - { include_tasks: "tasks/install.yml"}
+    - { include_tasks: "tasks/delete.yml"}
+    - { include_tasks: "tasks/download.yml"}
+  
