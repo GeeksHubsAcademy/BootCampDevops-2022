@@ -5,14 +5,21 @@ resource "aws_iam_group" "alumnos_group" {
 data "aws_iam_policy_document" "terraform_operator" {
   statement {
     actions = [
-      "s3:ListBucket",
-      "s3:GetObject",
-      "s3:PutObject",
-      "s3:DeleteObject"
+      "s3:*"
     ]
 
     resources = [
-      "arn:aws:s3:::terraform-devops-dev"
+      "*"
+    ]
+  }
+
+  statement {
+    actions = [
+      "s3:ListAllMyBuckets"
+    ]
+
+    resources = [
+      "*"
     ]
   }
 
