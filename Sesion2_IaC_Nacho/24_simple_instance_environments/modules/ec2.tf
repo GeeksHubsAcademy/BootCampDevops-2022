@@ -12,7 +12,7 @@ resource "aws_instance" "web_server" {
 
   ami                         = data.aws_ami.nginx.id
   instance_type               = var.instance_type
-  subnet_id                   = aws_subnet.my_subnet.id
+  subnet_id                   = data.aws_subnet.selected.id
   associate_public_ip_address = true
-  vpc_security_group_ids      = [aws_security_group.allow_traffic.id]
+  vpc_security_group_ids      = [data.aws_security_group.allow_traffic.id]
 }
