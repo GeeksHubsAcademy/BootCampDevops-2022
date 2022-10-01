@@ -1,6 +1,6 @@
 data "aws_vpc" "selected" {
   filter {
-    name = "tag:Name"
+    name   = "tag:Name"
     values = ["GeeksHubs-DevOps"]
   }
 }
@@ -10,5 +10,5 @@ data "aws_subnet" "selected" {
 }
 
 data "aws_security_group" "allow_traffic" {
-    name        = "allow-http-inbound-traffic"
+  name = "allow-http-inbound-traffic"
 }
