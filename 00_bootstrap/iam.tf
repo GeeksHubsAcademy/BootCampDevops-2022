@@ -80,3 +80,10 @@ resource "aws_iam_user_group_membership" "alumnos" {
     aws_iam_group.alumnos_group.name,
   ]
 }
+
+resource "aws_iam_user_policy_attachment" "alumnos_password" {
+  for_each = toset(local.alumnos)
+
+  user       = aws_iam_user.alumnos[each.key].name
+  policy_arn = data.aws_iam_policy.change_password.arn
+}
