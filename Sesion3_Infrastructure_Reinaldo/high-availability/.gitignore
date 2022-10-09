@@ -1,0 +1,10 @@
+*.terraform.lock.hcl*
+.terraform
+.terraform/*
+*.tfstate*
+.key
+.key/*
+.DS_Store
+*Icon*
+*.pem
+
