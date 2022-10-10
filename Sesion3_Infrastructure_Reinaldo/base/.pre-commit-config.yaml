@@ -1,0 +1,51 @@
+default_stages: [commit]
+repos:
+  - repo: local
+    hooks:
+      - id: jenkinsfile
+        name: test
+        entry: bash -c 'if [ -e Jenkinsfile ]; then curl -u $JENKINS_USER:$JENKINS_PASSWORD -X POST -H $JENKINS_CRUMB -F "jenkinsfile=<Jenkinsfile" $JENKINS_URL_VALIDATE; else echo "No Jenkinsfile found"; fi'
+        language: script
+        types: [bash]
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.0.1
+    hooks:
+      - id: check-merge-conflict
+      - id: check-json
+      - id: check-yaml
+        exclude: templates
+      - id: end-of-file-fixer
+        exclude: .github/
+      - id: trailing-whitespace
+        args: [--markdown-linebreak-ext=md]
+      - id: detect-aws-credentials
+        args: ['--allow-missing-credentials']
+      - id: detect-private-key
+  # Global
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v2.3.2
+    hooks:
+      - id: prettier
+        args: [--single-quote]
+        types: [json]
+        exclude: .git
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.50.0
+    hooks:
+      - id: terraform_fmt
+      - id: terraform_validate
+      - id: terraform_docs
+      #- id: terraform_tflint
+        args:
+          - '--args=--only=terraform_deprecated_interpolation'
+          - '--args=--only=terraform_required_version'
+          - '--args=--only=terraform_required_providers'
+      # - id: terraform_tfsec
+      #   args:
+      #     - '--args=--force-all-dirs'
+      #     - '--args=--exclude-downloaded-modules'
+      #     - '--args=--format json'
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.7.3
+    hooks:
+      - id: terraform_validate_no_variables
