@@ -82,3 +82,4 @@ sudo chown nginx:nginx /var/www/$vhost/wp-config.php
 echo "FINAL"
 sleep 5
 
+#https://docs.aws.amazon.com/systems-manager/latest/userguide/agent-install-al.html
