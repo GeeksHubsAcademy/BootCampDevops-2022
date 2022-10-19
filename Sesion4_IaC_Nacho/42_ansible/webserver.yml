@@ -1,0 +1,7 @@
+---
+- name: Set up webserver
+  hosts: webservers
+  become: yes
+  roles:
+    - common
+    - web_server
