@@ -3,7 +3,7 @@ provider "aws" {
     tags = {
       Account     = "GeeksHubs"
       Environment = "sandbox"
-      Owner       = "<tu_nombre>"
+      Owner       = "nacho"
       terraform   = "true"
     }
   }
