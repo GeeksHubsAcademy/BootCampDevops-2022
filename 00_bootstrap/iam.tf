@@ -67,8 +67,7 @@ resource "aws_iam_access_key" "alumnos" {
 resource "aws_iam_user_login_profile" "alumnos" {
   for_each = toset(local.alumnos)
 
-  user                    = aws_iam_user.alumnos[each.key].name
-  password_reset_required = true
+  user = aws_iam_user.alumnos[each.key].name
 }
 
 resource "aws_iam_user_group_membership" "alumnos" {
