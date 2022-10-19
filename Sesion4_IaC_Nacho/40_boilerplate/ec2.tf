@@ -1,10 +1,10 @@
 data "aws_ami" "nginx" {
-  owners      = ["979382823631"] # Bitnami
+  owners      = ["099720109477"] # Amazon
   most_recent = true
 
   filter {
     name   = "name"
-    values = ["bitnami-nginx-1.23.1-2-r02-linux-debian-11-x86_64-hvm-ebs-nami*"]
+    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
   }
 }
 
