@@ -44,5 +44,8 @@ Probaremos a desplegar y veremos que el template ha sido desplegado con la varia
 
 Sobreescribiremos esa variable con otra con nuestro nombre, una variable de grupo por ejemplo, y relanzamos.
 
-
+# 6. Varios templates
+- Copiaremos el template y lo modificaremos para tener un segundo HTML (por ejemplo "second.html"). Podemos vincularlos con un `<a>` si nos apetece.
+- Subiremos los templates en la misma tarea
+- Además, ya preocupados por la seguridad, haremos que el fichero no se copie como `root:root` sino como `www-data:www-data` (el usuario y grupo que usa el worker de nginx por defecto)
 

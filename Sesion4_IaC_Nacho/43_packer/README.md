@@ -19,4 +19,6 @@ Una vez tenga una AMI y la quiera probar, solo actualizo el bloque de data en Te
 - Un provisioner que mueva el archivo a `/var/www/html/index.html`
 
 # 2. Provisionar con Ansible
-Creo otro `.pkr.hcl` o modifico el anterior pero ahora la provisión la hago con Ansible utilizando el Playbook generado en el ejercicio 2
+Creo otro `.pkr.hcl` o modifico el anterior pero ahora la provisión la hago con Ansible utilizando un playbook de ansible que utilice los roles creados en el ejercicio 2.
+
+Ojo! ya no aplico a un grupo del inventario!
