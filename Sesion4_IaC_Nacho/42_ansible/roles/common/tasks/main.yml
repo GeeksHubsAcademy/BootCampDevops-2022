@@ -14,6 +14,5 @@
 
 - name: Keep packages up to date
   ansible.builtin.apt:
-    update_cache: yes
-    upgrade: yes
-
+    update_cache: true
+    upgrade: true
