@@ -1,0 +1,6 @@
+---
+webservers:
+  hosts:
+    webserver_1:
+      # This entry is in my /etc/hosts
+      ansible_host: nacho-geekshubs

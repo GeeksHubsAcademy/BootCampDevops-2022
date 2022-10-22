@@ -1,0 +1,9 @@
+---
+- name: Set up webserver
+  hosts: default
+  become: true
+  roles:
+    - common
+    - web_server
+  vars:
+    author_name: NachoPacker

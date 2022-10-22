@@ -1,0 +1,18 @@
+---
+- name: User administrator
+  ansible.builtin.user:
+    name: administrator
+    groups:
+      - users
+      - admin
+    password_lock: true
+
+- name: User administrator SSH keys
+  ansible.posix.authorized_key:
+    user: administrator
+    key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCvUEiGyD+Rx6DaFae+TsecR9BwoU/3/yJqcr2iTYes2wUAHpzRtwsaUj8qIV/h5GVp14HkQLRnOANKkcdTMb3ZkSIMmwxAJuGRn7qbAFXYq7ZXHbOL2mawMkSSvkRwtjadLXiqvzwXQGyUTIkKkx7/x5UA7Hg+UZSqNvl1lVAZReRk5mhAG+54jyWvMrXPGVjiZX3LNo3GhoiIxG0RX6Da3OUyl6qOrhsTOZaHaXnamYI8sxuE/Bj328r5rIsROdQBcaxvXCuLW3DCg5ZlB7eDGMKV2YJI5LrWuzDyvlMiVU776U0o0s46YRF6yslXkSRKe6IenGEq7YKL2EON/iQeD4dVQSETJuXNssuTpmh6AdQbpFYJH2mab+vNPdp4HYlAcrlG+BkvfDBhqHg8oKbV5YQEVRq951bddR07vV5/oywy/7jIUD/Ew9dUt9aAblox/r/UupLNkAVtDEA8GATh0g4s0X/jvW/Vh0pt3JTv3NHf9TtZGNvPtoF6Xv0jCMM= nacho@Nachos-MacBook-Pro.local
+
+- name: Keep packages up to date
+  ansible.builtin.apt:
+    update_cache: true
+    upgrade: true

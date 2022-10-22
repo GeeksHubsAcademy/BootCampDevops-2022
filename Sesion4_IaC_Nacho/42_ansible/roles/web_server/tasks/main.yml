@@ -1,0 +1,38 @@
+---
+- name: Nginx package
+  ansible.builtin.apt:
+    name: nginx
+
+- name: Nginx started and enabled
+  ansible.builtin.service:
+    name: nginx
+    enabled: true
+    state: started
+
+# This would be the task for copying the file
+# - name: HTML index file from file
+#   ansible.builtin.copy:
+#     src: index.html
+#     dest: /var/www/html/index.html
+#   notify:
+#     - Restart nginx
+
+# This would be the task for copying the template
+# - name: HTML index file from template
+#   ansible.builtin.template:
+#     src: index-without-link.html.j2
+#     dest: /var/www/html/index.html
+#   notify:
+#     - Restart nginx
+
+- name: HTML index file from template
+  ansible.builtin.template:
+    src: "{{ item }}.html.j2"
+    dest: /var/www/html/{{ item }}.html
+    owner: www-data
+    group: www-data
+  with_items:
+    - index
+    - second
+  notify:
+    - Restart nginx
