@@ -51,6 +51,16 @@ resource "aws_iam_group_policy_attachment" "alumnos_ec2" {
   policy_arn = data.aws_iam_policy.ec2_full_access.arn
 }
 
+resource "aws_iam_group_policy_attachment" "alumnos_ssm" {
+  group      = aws_iam_group.alumnos_group.name
+  policy_arn = data.aws_iam_policy.ssm_full_access.arn
+}
+
+resource "aws_iam_group_policy_attachment" "alumnos_ec2_instance_connect" {
+  group      = aws_iam_group.alumnos_group.name
+  policy_arn = data.aws_iam_policy.ec2_instance_connect.arn
+}
+
 resource "aws_iam_user" "alumnos" {
   for_each = toset(local.alumnos)
 
