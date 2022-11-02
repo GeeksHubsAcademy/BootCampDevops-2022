@@ -1,0 +1,3 @@
+bottle
+pytest
+elastic-apm[opentracing]==5.2.2

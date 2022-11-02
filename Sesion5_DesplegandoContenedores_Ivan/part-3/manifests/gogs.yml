@@ -1,0 +1,76 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: gogs
+  namespace: default
+  labels:
+    service: gogs
+spec:
+  ports:
+  - port: 3000
+    targetPort: 3000
+    protocol: TCP
+    name: gogs-ui
+  selector:
+    service: gogs
+
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: gogs-data
+  labels:
+    service: gogs
+spec:
+  accessModes: [ReadWriteOnce]
+  resources:
+    requests:
+      storage: 512Mi
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gogs
+  namespace: default
+  labels:
+    service: gogs
+spec:
+  revisionHistoryLimit: 1
+  replicas: 1
+  selector:
+    matchLabels:
+      service: gogs
+  minReadySeconds: 30
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        service: gogs
+    spec:
+      terminationGracePeriodSeconds: 30
+      restartPolicy: Always
+      containers:
+      - name: application
+        image: gogs/gogs:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
+          protocol: TCP
+          name: http
+        volumeMounts:
+        - mountPath: /data
+          name: gogs-data
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "0.2"
+          requests:
+            memory: "256Mi"
+            cpu: "0.2"
+      volumes:
+      - name: gogs-data
+        persistentVolumeClaim:
+          claimName: gogs-data

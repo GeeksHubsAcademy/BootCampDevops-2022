@@ -1,0 +1,90 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins
+  namespace: default
+  labels:
+    service: jenkins
+spec:
+  ports:
+  - port: 8000
+    targetPort: 8080
+    protocol: TCP
+    name: jenkins-ui
+  - port: 50000
+    targetPort: 50000
+    protocol: TCP
+    name: jenkins-admin
+  selector:
+    service: jenkins
+
+---
+
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: jenkins-data
+  labels:
+    service: jenkins
+spec:
+  accessModes: [ReadWriteOnce]
+  resources:
+    requests:
+      storage: 128Mi
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jenkins
+  namespace: default
+  labels:
+    service: jenkins
+spec:
+  revisionHistoryLimit: 1
+  replicas: 1
+  selector:
+    matchLabels:
+      service: jenkins
+  minReadySeconds: 30
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        service: jenkins
+    spec:
+      terminationGracePeriodSeconds: 60
+      restartPolicy: Always
+      serviceAccountName: jenkins
+      containers:
+      - name: application
+        image: jenkins/jenkins:lts-alpine
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+          name: http
+        - containerPort: 50000
+          protocol: TCP
+          name: jenkins-admin
+        volumeMounts:
+        - mountPath: /var/jenkins_home
+          name: jenkins-data
+        - name: dockersock
+          mountPath: "/var/run/docker.sock"
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "1"
+          requests:
+            memory: "512Mi"
+            cpu: "0.5"
+      volumes:
+      - name: jenkins-data
+        persistentVolumeClaim:
+          claimName: jenkins-data
+      - name: dockersock
+        hostPath:
+          path: /var/run/docker.sock
